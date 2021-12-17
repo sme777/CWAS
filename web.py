@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import argparse
 
-def activate_selenium_driver(windows=100, download_path=""):
+def activate_selenium_driver(windows, download_path, input_path):
     
     for i in range(windows):
         # set up firefox profile
@@ -24,7 +24,7 @@ def activate_selenium_driver(windows=100, download_path=""):
         driver = webdriver.Firefox(profile)
         driver.implicitly_wait(15)
         driver.get("https://hb.flatironinstitute.org/deepsea/")
-        driver.find_element_by_id("formDeepSEAFile").send_keys("~/Desktop/cs194/fasta_files/fasta"+ str(i) +".fasta")
+        driver.find_element_by_id("formDeepSEAFile").send_keys(input_path +"/fasta"+ str(i) +".fasta")
         driver.find_element_by_class_name("btn-primary").click()
         try:
             element = WebDriverWait(driver, 30).until(
@@ -37,13 +37,11 @@ def activate_selenium_driver(windows=100, download_path=""):
 parser = argparse.ArgumentParser()
 parser.add_argument('--windows', type=int, help='Optional Number of Files to Run Selenium')
 parser.add_argument('--path', type=str, help="Optional Custom Download Path")
+parser.add_argument('--folder', type=str, help="Folder to Upload Fasta Files from")
 args = parser.parse_args()
-print(args.windows, args.path)
-if args.windows == None and args.path == None:
-    activate_selenium_driver()
-elif args.windows == None and args.path != None:
-    activate_selenium_driver(download_path=args.path)
-elif args.windows != None and args.path == None:
-    activate_selenium_driver(windows=args.windows)
-else:
-    activate_selenium_driver(windows=args.windows, download_path=args.path)
+windows = args.windows or 100
+download_path = args.path or ""
+input_path = args.folder or "~/Desktop/cs194/lung_fasta/fasta"
+
+activate_selenium_driver(windows, download_path, input_path)
+
