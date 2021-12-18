@@ -3,7 +3,7 @@
 The first script to run is `breakdown.py`, followed by `web.py`, and finally `concat.py`.
 
 # Control Flow
-### `breakdown.py`
+### Setting up `breakdown.py`
 
 `breakdown.py` is a Python script that looks for cancer type specific genes from files downloaded from the COSMIC Cancer Browser and queries a file containing sequences for all genes that the COSMIC Cancer Browser contains in order to generate many smaller files containing the sequences for the genes associated with a specific cancer type.
 
@@ -19,10 +19,10 @@ The file containing sequences for every gene and and the file containing the gen
 The script can be ran with the command `python3 breakdown.py {filename of file containing sequences for all genes} {filename of file containing cancer specific genes} {number of desired sequences per output file}`.
 The script will generate a directory `fasta_files` which will contain the many smaller files. 
 
-### `web.py`
+### Setting up `web.py`
 
-`web.py` is a selenium script that uploads `fasta` files into the DeepSEA website, waits for the analysis to 
-finish and downloads the results archive compressed file (`tar.gz` format). `web.py` makes a few assumption, some of which would have
+`web.py` is a Python script that uses selenium webdriver to upload `fasta` files into the DeepSEA website, wait for the analysis to 
+finish and download the results archive compressed file (`tar.gz` format). `web.py` makes a few assumption, some of which would have
 already been handled for you if you followed the suggetsed pipeline and ran `script.py` to generate the `fasta` files.
 
 #### Setting up Local Environment 
@@ -59,6 +59,11 @@ we assume you have insatlled sleenium by running `pip install selenium`. Checkou
 The script can be ran with the command python3 web.py --windows {# of  files to run} --folder {the input folder} --path {the output folder}. The script will generate a directory from the output folder name which will contain the output files from DeepSEA.
 
 
-### `concat.py`
+### Setting up `concat.py`
 
+`concat.py` is a Python script that unzips and extract the `tsv` files from the DeepSEA's output files generated from `web.py`, and concatenates the tables together removing any uncessary column headers. The script takes in one mandatory field for the input folder and an optional `--cancer` flag so the outputs will be named after that caner type.
 
+### Running `concat.py`
+
+The script can be ran with the command `python3 concat.py {folder name containing the compressed DeapSEA files} --cancer {name of the cancer}`.
+The script will generate a single file `<caner-name>_merge.tsv` which will contain concatonated `tsv` files for that cancer.
