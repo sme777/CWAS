@@ -1,6 +1,21 @@
 # seaWAS
 
 # Control Flow
+### `breakdown.py`
+
+`breakdown.py` is a Python script that looks for cancer type specific genes from files downloaded from the COSMIC Cancer Browser and queries a file containing sequences for all genes that the COSMIC Cancer Browser contains in order to generate many smaller files containing the sequences for the genes associated with a specific cancer type.
+
+#### Setting up Local Environment 
+
+###### Assumption 1
+The script, the file containing sequences for every gene, and the file containing the genes associated with a specific type of cancer must all be in one common directory.
+
+###### Assumption 2
+The file containing sequences for every gene and and the file containing the genes associated with a specific type of cancer must be in .txt format.
+
+### Running `breakdown.py`
+The script can be ran with the command `python3 breakdown.py {filename of file containing sequences for all genes} {filename of file containing cancer specific genes} {number of desired sequences per output file}`.
+The script will generate a directory `fasta_files` which will contain the many smaller files. 
 
 ### `web.py`
 
@@ -8,11 +23,11 @@
 finish and downloads the results archive compressed file (`tar.gz` format). `web.py` makes a few assumption, some of which would have
 already been handled for you if you followed the suggetsed pipeline and ran `script.py` to generate the `fasta` files.
 
-#### Seting up Local Environment 
+#### Setting up Local Environment 
 
 ###### Assumption 1
 
-A list of `fasta` filesi located in a folder following the naming convetion of `fasta#{id}.fasta` `#{cancer_type}#{#id}.fasta`.
+A list of `fasta` files is located in a folder following the naming convetion of `fasta#{id}.fasta` `#{cancer_type}#{#id}.fasta`.
 To configure between these provide an optional argument `--cancer <cancer-name>` where `<cancer-name>`. For example, if the files
 are stored like `bone0.fasta, bone1.fasta, ...` you will need to provide `--cancer bone` as an optional argument. There is no need
 to provide any arguments if the names of files are like `fasta#{id}.fasta`.
