@@ -1,4 +1,6 @@
-# seaWAS
+# CWAS (cancer-wide association study)
+
+The first script to run is `breakdown.py`, followed by `web.py`, and finally `concat.py`.
 
 # Control Flow
 ### `breakdown.py`
@@ -53,3 +55,10 @@ We rely on the selenium library to execute the script. Installing `selenium` can
 we assume you have insatlled sleenium by running `pip install selenium`. Checkout the `PyPi` for details: https://pypi.org/project/selenium/
 
 ### Running `web.py`
+
+The script can be ran with the command python3 web.py --windows {# of  files to run} --folder {the input folder} --path {the output folder}. The script will generate a directory from the output folder name which will contain the output files from DeepSEA.
+
+
+### `concat.py`
+
+
